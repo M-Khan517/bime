@@ -1,0 +1,31 @@
+from django.views.generic import TemplateView
+from web_project import TemplateLayout
+from web_project.template_helpers.theme import TemplateHelper
+
+
+class SystemView(TemplateView):
+
+    template_name = None
+    status = None
+
+    def dispatch(self, request, *args, **kwargs):
+
+        self.template_name = kwargs.pop("template_name", self.template_name)
+        self.status = kwargs.pop("status", self.status)
+
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        # A function to init the global layout. It is defined in web_project/__init__.py file
+        context = TemplateLayout.init(self, super().get_context_data(**kwargs))
+
+        # Define the layout for this module
+        # _templates/layout/system.html
+        context.update(
+            {
+                "layout_path": TemplateHelper.set_layout("system.html", context),
+                "status": self.status,
+            }
+        )
+
+        return context

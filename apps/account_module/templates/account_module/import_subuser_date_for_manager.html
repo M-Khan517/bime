@@ -1,0 +1,70 @@
+{% extends layout_path %}
+
+{% load jalali_tags %}
+
+{% load i18n %}
+
+{% block title %}زائر های من{% endblock title %}
+
+{% block content %}
+
+<div class="content-wrapper">
+
+<div class="container">
+
+    <div class='text-center col-12 m-3'>
+        <p class='h5 text text-info'>فایل مربوط به اطلاعات زائران خود را وارد کنید</p>
+        <br>
+        <p class='text-warning'>فرمت صحیح فایل .xlsx می باشد</p>
+        <img class='img-fluid' src="{% static "img/import_help.jpeg" %}" alt="اموزش وارد کردن اطلاعات">
+        <br><hr>
+
+        <div class="text-warning">
+            <p>برای بارگذاری صحیح اطلاعات لطفا نمونه فایل زیر را دانلود فرمایید و اطلاعات را وارد فایل دانلود شده کنید</p>
+                        <a href="{% static 'data/demo.xlsx' %}" class="texe-link" download>دانلود فایل صحیح اکسل</a>
+
+        </div>
+
+        {% if messages %}
+        <br>
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}><strong>{{ message }}</strong></li>
+    {% endfor %}
+</ul>
+{% endif %}
+
+{% if errors %}
+<br>
+<hr>
+<ul class='list-group'>
+{% for error in errors %}
+
+
+<li class='list-group-item list-group-item-danger'>
+    {{error}}
+</li>
+
+{% endfor %}
+</ul>
+<br><hr>
+{% endif %}
+        <form action="" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+
+            <div class='form-group m-2'>
+                
+                {{form.excel_file}}
+            </div>
+
+            <button class='btn btn-info' type="submit">بارگذاری</button>
+            <a class='btn btn-danger' href='{% url "create_sub" %}'>بازگشت</a>
+        </form>
+    </div>
+
+</div>
+
+
+
+
+{% endblock content %}

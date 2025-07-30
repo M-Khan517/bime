@@ -1,0 +1,43 @@
+{% extends "layout/layout.html" %}
+{% load static %}
+{% block content %}
+
+
+<div class="container text-center ">
+    <div class='col m-3'>
+            <p class='h5 text text-info'>برای استعلام بیمه نامه، کد رهگیری بیمه نامه را در کادر زیر وارد نمایید.</p>
+
+            {% if form.errors %}
+                    <ul>
+
+                        {% for field in form %}
+                        {% for error in field.errors %}
+                        <li class='alert alert-danger'>
+                            <p> {{error}}</p>
+                        </li>
+                        {% endfor %}
+                        {% endfor %}
+
+
+
+                    </ul>
+                    {% endif %}
+        
+    <form action="" method="post">
+        {% csrf_token %}
+
+        <div class='col d-block m-3 text-center'>
+            {{form.insurance_code}}
+        </div>
+        
+        
+        <button class='btn btn-info' type="submit">استعلام</button>
+    </form>
+    </div>
+
+</div>
+
+
+
+
+{% endblock content %}

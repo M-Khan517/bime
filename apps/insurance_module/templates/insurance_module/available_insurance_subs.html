@@ -1,0 +1,46 @@
+{% extends layout_path %}
+
+{% load jalali_tags %}
+
+{% load i18n %}
+
+{% block title %}زائران{% endblock title %}
+
+{% block content %}
+
+<div class="container m-3 text-center">
+    <p class="text text-info h4">زائران این سفر</p>
+    <div class=" table-responsive border-top">
+        {% if subsets %}
+        <table class="table m-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>نام و نام خانوادگی زائر </th>
+                </tr>
+            </thead>
+
+            {% for sub in subsets %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{sub.full_name}}</td>
+            </tr>
+            {% endfor %}
+
+            <tbody>
+
+            </tbody>
+        </table>
+        {% endif %}
+    </div>
+
+    <button onclick="close_doc()" type="button" class='btn btn-danger m-2'>بستن</button>
+</div>
+
+<script>
+    function close_doc() {
+        window.close()
+    }
+</script>
+
+{% endblock %}
